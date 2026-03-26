@@ -159,8 +159,8 @@ function showState(state) {
 function renderModeNote() {
   const modeNote = document.getElementById("modeNote");
   if (predictionMode === "api") {
-    modeNote.hidden = true;
-    modeNote.textContent = "";
+    modeNote.hidden = false;
+    modeNote.textContent = "Connected to the Python API. Showing the live backend prediction.";
     return;
   }
 
