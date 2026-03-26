@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DiagnosAI - Symptom Checker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Syne:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-pulse"></span>
+        DiagnosAI
+      </div>
+      <div class="header-badge">Educational Use Only</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <p class="hero-eyebrow">41 conditions - 132 symptoms - ML-powered</p>
+    <h1 class="hero-title">What are you<br /><em>feeling?</em></h1>
+    <p class="hero-sub">Select your symptoms below and let the model analyse your condition.</p>
+  </section>
+
+  <main class="app-grid">
+    <section class="panel panel--left" id="selectorPanel">
+      <div class="panel-head">
+        <h2 class="panel-title">Symptoms</h2>
+        <span class="sel-badge" id="selBadge">0 selected</span>
+      </div>
+
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input class="search-input" id="searchInput" type="text" placeholder="Search symptoms..." autocomplete="off" />
+      </div>
+
+      <div class="cats" id="catTabs">
+        <button class="cat active" data-cat="all">All</button>
+        <button class="cat" data-cat="general">General</button>
+        <button class="cat" data-cat="skin">Skin</button>
+        <button class="cat" data-cat="digestive">Digestive</button>
+        <button class="cat" data-cat="respiratory">Respiratory</button>
+        <button class="cat" data-cat="neuro">Neuro</button>
+        <button class="cat" data-cat="musculo">Joints</button>
+        <button class="cat" data-cat="urinary">Urinary</button>
+      </div>
+
+      <div class="symptom-scroll">
+        <div class="symptom-grid" id="symptomGrid"></div>
+        <p class="no-results" id="noResults">No matching symptoms</p>
+      </div>
+
+      <div class="selector-footer">
+        <button class="btn-ghost" id="clearBtn">Clear all</button>
+        <button class="btn-analyse" id="analyseBtn" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          Analyse
+        </button>
+      </div>
+    </section>
+
+    <section class="panel panel--right" id="resultsPanel">
+      <div class="result-empty" id="emptyState">
+        <div class="empty-icon">
+          <svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 4"/><path d="M32 20v12M32 40v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <p>Select symptoms &amp; click <strong>Analyse</strong></p>
+      </div>
+
+      <div class="result-loading" id="loadingState">
+        <div class="dna-spinner">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <p>Analysing your symptoms...</p>
+      </div>
+
+      <div class="result-content" id="resultContent">
+        <div class="diagnosis-card" id="diagCard">
+          <div class="diag-label">Primary diagnosis</div>
+          <div class="diag-name" id="diagName">-</div>
+          <div class="diag-desc" id="diagDesc"></div>
+          <div class="conf-row">
+            <span class="conf-label">Confidence</span>
+            <div class="conf-track"><div class="conf-fill" id="confFill"></div></div>
+            <span class="conf-pct" id="confPct">-</span>
+          </div>
+        </div>
+
+        <div class="section-label">Top predictions</div>
+        <div class="pred-list" id="predList"></div>
+
+        <div class="section-label">Also check for</div>
+        <div class="sug-row" id="sugRow"></div>
+
+        <div class="disclaimer">
+          Warning: For educational purposes only. Not a substitute for professional medical advice.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

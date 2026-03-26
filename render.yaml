@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: disease-predictor-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    autoDeploy: true
+    healthCheckPath: /health
