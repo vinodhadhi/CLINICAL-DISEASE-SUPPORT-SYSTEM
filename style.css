@@ -312,6 +312,16 @@ body {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+.mode-note {
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 196, 92, 0.25);
+  background: rgba(255, 196, 92, 0.08);
+  color: #f7d48d;
+  font-size: 12px;
+  line-height: 1.5;
+}
 
 /* Diagnosis card */
 .diagnosis-card {

@@ -100,6 +100,7 @@ const API_URL = `${API_BASE_URL}/predict`;
 const selected = new Set();
 let currentCat = "all";
 let currentSearch = "";
+let predictionMode = "api";
 
 function toLabel(symptom) {
   return symptom
@@ -153,6 +154,18 @@ function showState(state) {
   document.getElementById("emptyState").classList.toggle("hidden", state !== "empty");
   document.getElementById("loadingState").classList.toggle("active", state === "loading");
   document.getElementById("resultContent").classList.toggle("active", state === "result");
+}
+
+function renderModeNote() {
+  const modeNote = document.getElementById("modeNote");
+  if (predictionMode === "api") {
+    modeNote.hidden = true;
+    modeNote.textContent = "";
+    return;
+  }
+
+  modeNote.hidden = false;
+  modeNote.textContent = "Backend unavailable. Showing a local browser-side rule-based estimate instead of the API result.";
 }
 
 function scoreDisease(profile, selectedSymptoms) {
@@ -236,6 +249,7 @@ function renderResult(data) {
   const name = (data.top_disease || "Unknown").trim();
   const confidence = Math.min(100, Math.max(0, data.confidence || 0));
 
+  renderModeNote();
   document.getElementById("diagName").textContent = name;
   document.getElementById("diagDesc").textContent =
     DISEASE_DESC[name] || "A condition identified based on the selected symptoms.";
@@ -314,6 +328,8 @@ document.getElementById("searchInput").addEventListener("input", event => {
 
 document.getElementById("clearBtn").addEventListener("click", () => {
   selected.clear();
+  predictionMode = "api";
+  renderModeNote();
   updateCounts();
   renderGrid();
   showState("empty");
@@ -327,9 +343,11 @@ document.getElementById("analyseBtn").addEventListener("click", async () => {
 
   try {
     const prediction = await fetchPrediction();
+    predictionMode = "api";
     renderResult(prediction);
   } catch (error) {
     console.warn("Python API unavailable, using local fallback:", error);
+    predictionMode = "local";
     await new Promise(resolve => setTimeout(resolve, 280));
     renderResult(buildLocalPrediction());
   } finally {
