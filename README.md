@@ -8,6 +8,9 @@ GitHub Pages files are in `frontend/`:
 - `frontend/script.js`
 - `frontend/style.css`
 
+If you publish with GitHub Pages from the repository root, the root `index.html`
+redirects visitors to `frontend/` so the site does not return a 404.
+
 ## Backend
 
 Render backend files are in `backend/`:
