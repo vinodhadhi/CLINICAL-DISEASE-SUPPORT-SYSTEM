@@ -94,7 +94,7 @@ const PROFILE_TOTALS = Object.fromEntries(
 );
 const API_BASE_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
   ? "http://127.0.0.1:8000"
-  : "https://your-render-backend.onrender.com";
+  : "https://disease-predictor-api-hf23.onrender.com";
 const API_URL = `${API_BASE_URL}/predict`;
 
 const selected = new Set();
